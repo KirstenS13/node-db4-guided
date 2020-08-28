@@ -1,0 +1,69 @@
+DATA MODELING - 8/26/20 - LECTURE
+
+DATA NORMALIZATION:
+
+SCHEMA NORMALIZATION GUIDLINES
+    -- No field values are repeated (No column should have repeated text)
+    -- There are no redundant records (No two rows should be identical)
+    -- Each record has a unique primary key 
+    -- All fields in a table should relate to the primary key (what the table is about)
+
+Data is normalized in order to prevent data anomalies
+
+Break database up into multiple tables to keep it normalized
+
+RELATIONSHIP TYPES:
+
+THREE MAIN TYPES:
+    -- ONE TO ONE
+    -- ONE TO MANY
+    -- MANY TO MANY
+
+ONE TO ONE RELATIONSHIPS: 1:1
+    -- EX) farms table & revenue table
+        -- farms keeps track of farm data
+        -- revenue keeps track of revenue data for each farm
+
+    -- Useful for splitting up tables that have lots and lots of columns
+
+    -- If the table has so many columns that it's getting out of hand, split it up
+
+    -- Foreign Key can go on either side of the relationship, or both
+        -- It ususally goes on the one that is more auxilliary
+
+ONE TO MANY RELATIONSHIPS: 1:* or *:1
+    -- Rows in Table B can link to many Rows in Table A (One)
+
+    -- Rows in Table A can only link to one Row in Table B (Many)
+
+    -- Foreign Key goes on the Many side (Table B)
+
+    -- EX) Cars can have many drivers, but each driver can only drive one car at a time
+    -- EX) Each eye has many eye lashes, each eye lash has only one eye
+
+MANY TO MANY RELATIONSHIPS: *:*
+    -- Rows in Table A can link to many Rows in Table B
+    -- Rows in Table B can link to many Rows in Table A
+    -- Requires a third table
+        -- Intermediary/Join Table
+        -- Conventionally Named tableOneName_tableTwoName or tableOneName_tableTwoName_map
+        -- Join tables are related to the other two tables by 1:* relationship
+            -- Those two 1:* relationships make a *:* relationship
+
+    -- EX) Many types of animals can live on many different farms
+
+    -- EX) An author can write many books, a book can be written by many authors
+
+All data in a database will conform to one of these relationship types
+
+Foreign Key must be the same data type as the Primary Key it is pointing to
+
+If record is deleted, can set it to null with .onDelete
+
+Must run this command in SQL so that foreign_keys will be enforced 
+    -- PRAGMA foreign_keys = ON;
+    -- run this every time you open the server
+
+More about foreign keys: https://www.sqlite.org/foreignkeys.html
+
+It's a good idea to specify onDelete and onUpdate for each foreign key
